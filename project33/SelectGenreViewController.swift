@@ -10,7 +10,7 @@ import UIKit
 
 class SelectGenreViewController: UITableViewController {
     
-    static var genre = ["Unknown", "Blues", "Classical","Electronic", "Jazz", "Metal", "Pop", "Reggae", "RnB", "Rock", "Soul"]
+    static var genres = ["Unknown", "Blues", "Classical","Electronic", "Jazz", "Metal", "Pop", "Reggae", "RnB", "Rock", "Soul"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,19 +34,19 @@ class SelectGenreViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return SelectGenreViewController.genre.count
+        return SelectGenreViewController.genres.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = SelectGenreViewController.genre[indexPath.row]
+        cell.textLabel?.text = SelectGenreViewController.genres[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            let genre = cell.textLabel?.text ?? SelectGenreViewController.genre[0]
+            let genre = cell.textLabel?.text ?? SelectGenreViewController.genres[0]
             let vc = AddCommentsViewController()
             vc.genre = genre
             

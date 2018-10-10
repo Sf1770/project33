@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddCommentsViewController: UIViewController {
+class AddCommentsViewController: UIViewController, UITextViewDelegate {
     
     var genre: String!
     
@@ -17,13 +17,31 @@ class AddCommentsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "Comments"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(submitTapped))
+        comments.text = placeholder
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @objc func submitTapped() {
+        let vc = SubmitViewController()
+        vc.genre = genre
+        
+        if comments.text == placeholder{
+            vc.comments = ""
+        } else{
+            vc.comments = comments.text
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == placeholder {
+            textView.text = ""
+        }
     }
     
     override func loadView() {
@@ -34,6 +52,12 @@ class AddCommentsViewController: UIViewController {
         comments.delegate = self
         comments.font = UIFont.preferredFont(forTextStyle: .body)
         view.addSubview(comments)
+        
+        comments.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        comments.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        comments.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        comments.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
     }
     
 
